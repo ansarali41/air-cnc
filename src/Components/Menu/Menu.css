@@ -4,3 +4,17 @@ Nav.Link{
 .navBar-container{
     border-bottom: 1px solid rgb(199, 197, 197);
 }
+.signUp-btn{
+    color: white;
+    background: rgb(43,222,140);
+    background: linear-gradient(0deg, rgba(43,222,140,1) 0%, rgba(98,234,97,1) 100%);
+}
+.NavbarLink{
+    text-decoration: none;
+    color: black;
+    padding: 5px 10px;
+}
+.NavbarLink:hover{
+    text-decoration: none;
+    color: black;
+}
