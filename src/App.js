@@ -8,13 +8,23 @@ import {
 } from "react-router-dom";
 import Login from './Components/Login/Login';
 import SelectedLocation from './Components/SelectedLocation/SelectedLocation';
+import HotelDetails from './Components/SelectedLocation/HotelDetails/HotelDetails';
+import Index from './Components/ReserveSteps';
+
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/selected-location">
+        <Route path="/selectedLocation">
           <SelectedLocation />
+        </Route>
+
+        <Route path="/hotel/:hotelId">
+          <HotelDetails />
+        </Route>
+        <Route path="/reserveSteps">
+          <Index />
         </Route>
 
         <Route path="/login">

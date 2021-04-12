@@ -50,7 +50,7 @@ const Home = () => {
                             <input type="text" className="form-control" name="location" placeholder="Add City, Land Mark or Address" ref={register({ required: true })} />
                             {errors.location && <span style={{ color: 'red' }}>This field is required</span>}
                         </div>
-                        <Link to="/selected-location"><input className="form-control text-center gradient-btn" type="submit" value="Search " /></Link>
+                        <Link to="/selectedLocation"><input className="form-control text-center gradient-btn" type="submit" value="Search " /></Link>
 
                     </form>
                 </Col>

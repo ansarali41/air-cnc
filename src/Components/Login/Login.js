@@ -6,7 +6,7 @@ const Login = () => {
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => console.log(data);
     return (
-        <div>
+        <div className="container">
             <Menu />
             <div className="d-flex justify-content-center">
                 <h3 className="py-5">Login</h3>

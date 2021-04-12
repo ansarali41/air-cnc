@@ -1,0 +1,17 @@
+.card-text {
+    position: relative;
+    width: 100%;
+}
+.card-text-bottom {
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+}
+.star-icon {
+    color: #67EB5D;
+}
+/* .card-img {
+    width: 190px;
+    padding: 5px;
+    border-radius: 20px;
+} */
