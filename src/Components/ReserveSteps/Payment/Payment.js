@@ -1,10 +1,6 @@
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-import CheckoutForm from "./CheckoutForm";
 
-const promise = loadStripe("pk_test_51Ha1hsEGLbU7xdvfaEFs0QLW43c6o73yJ7HXHlkOQkWGoBNu6qBnhLwluQOErLRpcv2NS8mTOnalPENDGoOEdG3V00YHX2mT5u");
 
 const Payment = () => {
     const handleToken = (token, address) => {
