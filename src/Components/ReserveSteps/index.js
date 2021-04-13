@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Menu from '../Menu/Menu';
 import ReserveCart from '../ReserveCart/ReserveCart';
-import Payment from './Payment';
+import Payment from './Payment/Payment';
 import ReviewHouse from './ReviewHouse';
 import WhoComing from './WhoComing';
 
@@ -29,7 +29,6 @@ const Index = () => {
         }
     }
     
-    console.log(steps);
     return (
         <section className="container">
             <Menu />
