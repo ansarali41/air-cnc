@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import './Menu.css'
 import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
+import { logOutHandler } from '../Login/LoginManager';
 
 const Menu = () => {
+
+    const [user, setUser] = useContext(UserContext);
+    const { displayName, isLoggedIn } = user;
+    const userLogOut=() => {
+        logOutHandler()
+            .then(res => {
+                setUser(res)
+            })
+    }
     return (
         <div className="navBar-container">
             <Navbar collapseOnSelect expand="lg" bg="transparent" variant="light">
@@ -16,10 +27,15 @@ const Menu = () => {
                     <Nav >
                         <Link to="/host-home" className="NavbarLink">Host your home</Link>
                         <Link to="/experience" className="NavbarLink">Host your experience</Link>
-                        {/* <Nav.Link eventKey={3} href="#">Help</Nav.Link> */}
                         <Link to="/help" className="NavbarLink">Help</Link>
-                        <Link to="/login" className="NavbarLink">Login</Link>
-                        <Link to="/sign-up"><Button className="signUp-btn" variant="success">Sign Up</Button></Link>
+                        {
+                            displayName ? displayName :
+                                <Link to="/login" className="NavbarLink">Login</Link>
+                        }
+
+                        {displayName ?<Button onClick={userLogOut} className="signUp-btn" variant="success">Sign Out</Button>:
+                            <Link to="/signUp"><Button className="signUp-btn" variant="success">Sign Up</Button></Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

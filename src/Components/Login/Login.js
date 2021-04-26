@@ -1,30 +1,41 @@
-import React from 'react';
-import Menu from '../Menu/Menu';
-import { useForm } from "react-hook-form";
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useContext } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import './Login.css'
+import { UserContext } from '../../App';
+import { handleGoogleSignIn, initializeFirebase } from './LoginManager';
+import logo from '../../images/logo.png'
 
 const Login = () => {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log(data);
+    initializeFirebase()
+    const [user, setUser] = useContext(UserContext);
+    let history = useHistory();
+    let location = useLocation();
+
+    let { from } = location.state || { from: { pathname: "/" } };
+
+    // google sign 
+    const googleSignIn = () => {
+        handleGoogleSignIn()
+            .then(res => {
+                setUser(res);
+                history.replace(from);
+            })
+    }
+
+
     return (
-        <div className="container">
-            <Menu />
-            <div className="d-flex justify-content-center">
-                <h3 className="py-5">Login</h3>
+        <div className="container text-center mt-5">
+            <div className="mb-2">
+                <Link to="/">
+                    <img style={{ width: '180px' }} src={logo}alt="" />
+                </Link>
             </div>
-            <div className="d-flex justify-content-center">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="input-box">
-                        <label>Country / Region</label> <br />
-                        <input type="text" className="form-control" name="country" placeholder="Add City, Land Mark or Address" ref={register({ required: true })} />
-                        {errors.country && <span style={{ color: 'red' }}>This field is required</span>}
-                    </div>
-                    <div className="input-box">
-                        <label>Country / Region</label> <br />
-                        <input type="tel" className="form-control" name="phone" placeholder="Enter Phone Number" ref={register({ required: true })} />
-                        {errors.phone && <span style={{ color: 'red' }}>This field is required</span>}
-                    </div>
-                    <input className="form-control text-center gradient-btn" type="submit" value="Continue  " />
-                </form>
+            <div className="login-section">
+                <h3>Login With <br />Or<br /> Sign Up</h3>
+                <Button variant="light" className="bg-white p-2 login-btn" onClick={googleSignIn}> <FontAwesomeIcon className="text-primary" icon={faGoogle} /> Continue with Google</Button>
             </div>
         </div>
     );

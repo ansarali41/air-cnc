@@ -1,17 +1,14 @@
-import { faArrowRight, faCheckSquare, faChevronDown, faHome, faPumpSoap, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare, faChevronDown, faHome, faPumpSoap, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-// import SearchHotels from '../../../fakeData/SearchHotels';
 import Menu from '../../Menu/Menu';
 import ReserveCart from '../../ReserveCart/ReserveCart';
 
 const HotelDetails = () => {
-
     const { hotelId } = useParams();
     const [SearchHotels, setSearchHotels] = useState([]);
-
 
     useEffect(() => {
         fetch('http://localhost:5000/hotels')
@@ -23,16 +20,14 @@ const HotelDetails = () => {
     const hotel = SearchHotels.find(htl => htl.id === parseInt(hotelId));
     console.log(SearchHotels);
     console.log(hotel);
-    //  const { title, image, image2, guests, bedrooms, beds, baths, cancellation, rating, totalRating, price, shift, totalPrice, city, country, EntireHome, SelfCheckIn, SparklingClean, Superhost, description } = hotel;
-
-    // return (
-    //     <div>{hotel? hotel.title: null}</div>
-    // );
     return (
         <>
+            <div className="container">
+                <Menu />
+            </div>
             {hotel ?
                 <div className="container">
-                    <Menu />
+
                     <Row className="mb-3">
                         <Col xs={12} md={6}>
                             <img style={{ width: '100%' }} className="img-fluid" src={hotel.image2} alt="" />

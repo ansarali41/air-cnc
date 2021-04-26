@@ -1,13 +1,13 @@
 import { faArrowRight, faChevronDown, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../../App';
+import { Link,useHistory } from 'react-router-dom';
 
 const ReserveCart = () => {
-    const [user, setUser] = useContext(UserContext);
-    console.log(user);
+    let history = useHistory();
+    console.log(history);
+    console.log(history.location.pathname);
 
     return (
         <div className=" d-flex justify-content-center">
@@ -44,7 +44,9 @@ const ReserveCart = () => {
                     <small>Total</small>
                     <small>$167</small>
                 </div>
-                <Link to="/reserveSteps"><input className="form-control text-center gradient-btn" type="submit" value="Reserve" /></Link>
+                {
+                    history.location.pathname === '/reserveSteps'? null: <Link to="/reserveSteps"><input className="form-control text-center gradient-btn" type="submit" value="Reserve" /></Link>
+                }
                 <div className="text-center">
                     <small>You won’t be charged yet</small>
                 </div>

@@ -11,6 +11,7 @@ import SelectedLocation from './Components/SelectedLocation/SelectedLocation';
 import HotelDetails from './Components/SelectedLocation/HotelDetails/HotelDetails';
 import Index from './Components/ReserveSteps';
 import { createContext, useState } from 'react';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 export const UserContext = createContext();
 
@@ -18,7 +19,7 @@ function App() {
   const [user, setUser] = useState({
     displayName: '',
     email: '',
-    photo: ''
+    isLoggedIn: ''
   })
 
   return (
@@ -32,11 +33,15 @@ function App() {
           <Route path="/hotel/:hotelId">
             <HotelDetails />
           </Route>
-          <Route path="/reserveSteps">
+
+          <PrivateRoute path="/reserveSteps">
             <Index />
-          </Route>
+          </PrivateRoute>
 
           <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signUp">
             <Login />
           </Route>
 
