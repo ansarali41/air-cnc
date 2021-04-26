@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import SearchHotels from '../../fakeData/SearchHotels';
 import Menu from '../Menu/Menu';
 import HotelCard from './HotelCard/HotelCard';
 import Map from './Map/Map';
 import './SelectedLocation.css';
 
 const SelectedLocation = () => {
-    const filterData = ['Cancellation flexibility', 'Type of place', 'Price', 'Instant Book', 'More Filters'];
+    const allFilterData = ['Cancellation flexibility', 'Type of place', 'Price', 'Instant Book', 'More Filters'];
+    const [filterData] = useState(allFilterData);
     return (
         <div className="container">
             <Menu />
@@ -17,12 +17,10 @@ const SelectedLocation = () => {
                     <h5>Stay in  location division</h5>
                     <div className="d-flex location-filter">
                         {
-                            filterData.map(element => <p><small className="border rounded-pill p-2 mr-1">{element}</small></p>)
+                            filterData.map((element, idx) => <p key={idx}><small className="border rounded-pill p-2 mr-1">{element}</small></p>)
                         }
                     </div>
-                    {
-                        SearchHotels.map(htl => <HotelCard hotel={htl} key={htl.id} ></HotelCard>)
-                    }
+                    <HotelCard />
                 </Col>
                 <Col xs={12} md={6}>
                     <Map />

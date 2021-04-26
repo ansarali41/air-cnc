@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Menu from '../Menu/Menu'
 import { useForm } from "react-hook-form";
 import { Col, Container, Row } from 'react-bootstrap';
 import './Home.css'
 import Homes from './Homes/Homes';
 import Experiences from './Experiences/Experiences';
-import ExperiencesData from '../../fakeData/ExperiencesData';
-import HomesData from '../../fakeData/HomesData';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const Home = () => {
+    const [user, setUser] = useContext(UserContext);
+
+    // const [searchData, setSearchData] = useState(null)
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        // setSearchData(data)
+        const newData = { ...user, searchData:data }
+        console.log(newData);
+        setUser(newData)
+    };
+    // console.log(searchData);
+    // console.log(user);
 
     return (
         <Container className="container">
@@ -47,9 +56,15 @@ const Home = () => {
                             <label>Guests</label> <br />
                             <h5>0 Adult 0 Child</h5>
                             <hr />
-                            <input type="text" className="form-control" name="location" placeholder="Add City, Land Mark or Address" ref={register({ required: true })} />
-                            {errors.location && <span style={{ color: 'red' }}>This field is required</span>}
+                            <input type="number" className="form-control" name="passenger" placeholder="Number of Passenger" ref={register({ required: true })} />
+                            {errors.Guests && <span style={{ color: 'red' }}>This field is required</span>}
                         </div>
+                        {/* <div onMouseEnter={handleSubmit(onSubmit)}>
+                            {searchData ?
+                                <Link to="/selectedLocation"><input className="form-control text-center gradient-btn" type="submit" value="Search " /></Link> :
+                                <input className="form-control text-center gradient-btn" type="submit" value="Search " />
+                            }
+                        </div> */}
                         <Link to="/selectedLocation"><input className="form-control text-center gradient-btn" type="submit" value="Search " /></Link>
 
                     </form>
@@ -58,19 +73,11 @@ const Home = () => {
                 <Col xs={12} md={8}>
                     <div xs={12} md={6}>
                         <h4>Experiences</h4>
-                        <div className='d-flex justify-content-around'>
-                            {
-                                ExperiencesData.map(Ex => <Experiences Experience={Ex} key={Ex.id} ></Experiences>)
-                            }
-                        </div>
+                        <Experiences />
                     </div>
                     <div xs={12} md={6}>
                         <h4>Homes</h4>
-                        <div className='d-flex justify-content-around'>
-                            {
-                                HomesData.map(Home => <Homes Home={Home} key={Home.id} ></Homes>)
-                            }
-                        </div>
+                        <Homes />
                     </div>
                 </Col>
             </Row>

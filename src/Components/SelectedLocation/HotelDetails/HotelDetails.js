@@ -1,57 +1,74 @@
 import { faArrowRight, faCheckSquare, faChevronDown, faHome, faPumpSoap, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import SearchHotels from '../../../fakeData/SearchHotels';
+// import SearchHotels from '../../../fakeData/SearchHotels';
 import Menu from '../../Menu/Menu';
 import ReserveCart from '../../ReserveCart/ReserveCart';
 
 const HotelDetails = () => {
 
     const { hotelId } = useParams();
+    const [SearchHotels, setSearchHotels] = useState([]);
+
+
+    useEffect(() => {
+        fetch('http://localhost:5000/hotels')
+            .then(response => response.json())
+            .then(data => {
+                setSearchHotels(data);
+            })
+    }, [])
     const hotel = SearchHotels.find(htl => htl.id === parseInt(hotelId));
-    const { title, image, image2, guests, bedrooms, beds, baths, cancellation, rating, totalRating, price, shift, totalPrice, city, country, EntireHome, SelfCheckIn, SparklingClean, Superhost, description } = hotel;
+    console.log(SearchHotels);
+    console.log(hotel);
+    //  const { title, image, image2, guests, bedrooms, beds, baths, cancellation, rating, totalRating, price, shift, totalPrice, city, country, EntireHome, SelfCheckIn, SparklingClean, Superhost, description } = hotel;
 
+    // return (
+    //     <div>{hotel? hotel.title: null}</div>
+    // );
     return (
-        <div className="container">
-            <Menu />
-            <Row>
-                <Col xs={12} md={6}>
-                    <img style={{ width: '100%' }} className="img-fluid" src={image2} alt="" />
-                </Col>
-                <Col xs={12} md={6}>
-                    <img style={{ width: '100%' }} className="img-fluid" src={image} alt="" />
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={12} md={6}>
-                    <h3>{title}</h3>
-                    <p><small>{city}, {country}</small></p>
-                    <p><small>{guests} guests {bedrooms} bedrooms {beds} beds {baths} baths</small></p>
-                    <hr />
+        <>
+            {hotel ?
+                <div className="container">
+                    <Menu />
+                    <Row className="mb-3">
+                        <Col xs={12} md={6}>
+                            <img style={{ width: '100%' }} className="img-fluid" src={hotel.image2} alt="" />
+                        </Col>
+                        <Col xs={12} md={6}>
+                            <img style={{ width: '100%' }} className="img-fluid" src={hotel.image} alt="" />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={12} md={6}>
+                            <h3>{hotel.title}</h3>
+                            <p><small>{hotel.city}, {hotel.country}</small></p>
+                            <p><small>{hotel.guests} guests {hotel.bedrooms} bedrooms {hotel.beds} beds {hotel.baths} baths</small></p>
+                            <hr />
 
-                    <p><FontAwesomeIcon icon={faHome}></FontAwesomeIcon> <small> Entire home <br /> &emsp; {EntireHome}</small></p>
-                    <p><FontAwesomeIcon icon={faCheckSquare}></FontAwesomeIcon> <small> Self check-in <br /> &emsp; {SelfCheckIn}</small></p>
-                    <p><FontAwesomeIcon icon={faPumpSoap}></FontAwesomeIcon> <small>Sparkling clean <br /> &emsp; {SparklingClean}</small></p>
-                    <p><FontAwesomeIcon icon={faUser}></FontAwesomeIcon> <small>Rowdra is a Superhost <br /> &emsp; {Superhost}</small></p>
+                            <p><FontAwesomeIcon icon={faHome}></FontAwesomeIcon> <small> Entire home <br /> &emsp; {hotel.EntireHome}</small></p>
+                            <p><FontAwesomeIcon icon={faCheckSquare}></FontAwesomeIcon> <small> Self check-in <br /> &emsp; {hotel.SelfCheckIn}</small></p>
+                            <p><FontAwesomeIcon icon={faPumpSoap}></FontAwesomeIcon> <small>Sparkling clean <br /> &emsp; {hotel.SparklingClean}</small></p>
+                            <p><FontAwesomeIcon icon={faUser}></FontAwesomeIcon> <small>Rowdra is a Superhost <br /> &emsp; {hotel.Superhost}</small></p>
 
-                    <p><small>{description}</small></p>
+                            <p><small>{hotel.description}</small></p>
 
-                    <p><small>Read Read more about the space <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></small></p>
+                            <p><small>Read Read more about the space <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></small></p>
 
-                    <p>
-                        Reviews <br />
-                        <small><FontAwesomeIcon icon={faStar} className="star-icon"></FontAwesomeIcon >{rating}({totalRating} reviews)</small>
-                    </p>
+                            <p>
+                                Reviews <br />
+                                <small><FontAwesomeIcon icon={faStar} className="star-icon"></FontAwesomeIcon >{hotel.rating}({hotel.totalRating} reviews)</small>
+                            </p>
 
-                </Col>
+                        </Col>
 
-                {/* Reserve card */}
-                <Col xs={12} md={6}>
-                    <ReserveCart />
+                        {/* Reserve card */}
+                        <Col xs={12} md={6}>
+                            <ReserveCart />
 
-                    {/* <Card className="p-4 shadow" style={{ width: '24rem' }}>
+                            {/* <Card className="p-4 shadow" style={{ width: '24rem' }}>
                         <p>${price}/{shift}</p>
                         <small><FontAwesomeIcon icon={faStar} className="star-icon"></FontAwesomeIcon >{rating}({totalRating} reviews)</small> <br />
 
@@ -89,9 +106,12 @@ const HotelDetails = () => {
                             <small>You won’t be charged yet</small>
                         </div>
                     </Card> */}
-                </Col>
-            </Row>
-        </div>
+                        </Col>
+                    </Row>
+                </div>
+                : null
+            }
+        </>
     );
 };
 
