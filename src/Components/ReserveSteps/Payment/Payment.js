@@ -7,7 +7,7 @@ const Payment = () => {
         console.log(`token: ${token} \n, address: ${address}`);
     }
     let product = {
-        price: 100,
+        price: 163,
         name:'hotel diamond'
     }
     return (
