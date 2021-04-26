@@ -5,7 +5,7 @@ const Experiences = (props) => {
     const [experiences, setExperiences] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/experiences')
+        fetch('https://frozen-journey-04607.herokuapp.com/experiences')
             .then(response => response.json())
             .then(data => {
                 setExperiences(data)

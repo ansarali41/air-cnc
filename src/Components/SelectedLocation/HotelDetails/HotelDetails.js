@@ -11,7 +11,7 @@ const HotelDetails = () => {
     const [SearchHotels, setSearchHotels] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/hotels')
+        fetch('https://frozen-journey-04607.herokuapp.com/hotels')
             .then(response => response.json())
             .then(data => {
                 setSearchHotels(data);

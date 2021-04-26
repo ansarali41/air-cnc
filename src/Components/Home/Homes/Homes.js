@@ -4,7 +4,7 @@ const Homes = () => {
     const [homes, setHomes] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/homes')
+        fetch('https://frozen-journey-04607.herokuapp.com/homes')
             .then(response => response.json())
             .then(data => {
                 setHomes(data)
